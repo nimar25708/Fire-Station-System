@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Fire Station Incident Management System</title>
+    <link rel="stylesheet" href="fire station.css">
+</head>
+<body id="top">
+
+    <header class="topbar">
+        <div class="brand">
+            <div class="flame" aria-hidden="true">&#128293;</div>
+            <div>
+                <h1>Fire Station Incident Management System</h1>
+                <p>A simulated dispatch system for assigning fire-response resources to incidents.</p>
+            </div>
+        </div>
+        <div class="clock-box">
+            <div id="clock-time">--:--:--</div>
+            <div id="clock-date">--</div>
+        </div>
+    </header>
+
+    <nav class="nav" id="nav">
+        <a href="#home">Home</a>
+        <a href="#intake">Incident Intake</a>
+        <a href="#vehicles">Vehicle Availability</a>
+        <a href="#crew">Crew Assignment</a>
+        <a href="#dispatch">Dispatch Status</a>
+        <a href="#history">Incident History</a>
+    </nav>
+
+    <main>
+
+        <!-- Pure CSS Confirmation Banner when forms are submitted -->
+        <div id="submitted" class="notice-banner">
+            <span>&#10004; Action recorded in the control room log (HTML/CSS Simulation).</span>
+            <a href="#home" class="close-notice">Dismiss</a>
+        </div>
+
+        <!-- ==================== HOME ==================== -->
+        <section id="home" class="view">
+            <div class="hero">
+                <h2>Welcome, Operator</h2>
+                <p>
+                    This is a simulated fire station control room. A new incident is recorded,
+                    its severity and location are noted, a free vehicle and a crew are assigned,
+                    and the dispatch status is tracked until the incident is closed.
+                </p>
+                <p class="emergency">Real emergency? Call 101 (Fire) or 112 (All emergencies). This website is only a college project.</p>
+            </div>
+
+            <h3>Station Summary (Live)</h3>
+            <div class="stats">
+                <div class="stat red"><span>2</span><small>Active Incidents</small></div>
+                <div class="stat orange"><span>1</span><small>Pending Dispatch</small></div>
+                <div class="stat green"><span>4</span><small>Vehicles Available</small></div>
+                <div class="stat"><span>2</span><small>Vehicles On Duty</small></div>
+                <div class="stat green"><span>3</span><small>Crew Free</small></div>
+            </div>
+
+            <div class="card">
+                <h3>Current Active Incidents</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Incident ID</th><th>Type</th><th>Location</th><th>Severity</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INC-005</td>
+                                <td>Building Fire</td>
+                                <td>Market Road</td>
+                                <td><span class="sev sev-high">High</span></td>
+                                <td><span class="pill busy">On the way</span></td>
+                            </tr>
+                            <tr>
+                                <td>INC-006</td>
+                                <td>Short Circuit Fire</td>
+                                <td>Green Park Colony</td>
+                                <td><span class="sev sev-medium">Medium</span></td>
+                                <td><span class="pill waiting">Waiting for dispatch</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>How the System Works</h3>
+                    <ol class="steps">
+                        <li>A call comes in and the details are filled in under <a href="#intake">Incident Intake</a>.</li>
+                        <li>The severity of the incident is decided (Low, Medium, High or Critical).</li>
+                        <li>The operator checks which vehicles are free under <a href="#vehicles">Vehicle Availability</a>.</li>
+                        <li>A crew is chosen under <a href="#crew">Crew Assignment</a>.</li>
+                        <li>The vehicle and crew are sent from <a href="#dispatch">Dispatch Status</a>.</li>
+                        <li>After the fire is put out, the incident is closed and saved in <a href="#history">Incident History</a>.</li>
+                    </ol>
+                </div>
+
+                <div class="card">
+                    <h3>Station Information</h3>
+                    <div class="table-wrap">
+                        <table class="info">
+                            <tr><th>Station Name</th><td>Main Fire Station</td></tr>
+                            <tr><th>Control Room Phone</th><td>101</td></tr>
+                            <tr><th>Station Officer</th><td>Ramesh Kumar</td></tr>
+                            <tr><th>Working Hours</th><td>24 hours, 3 shifts (Morning, Evening, Night)</td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Severity Levels</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Level</th><th>Meaning</th><th>Resources Normally Sent</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><span class="sev sev-low">Low</span></td><td>Small fire, no one in danger</td><td>1 Fire Tender</td></tr>
+                            <tr><td><span class="sev sev-medium">Medium</span></td><td>Fire can spread, nobody trapped</td><td>1 Fire Tender + 1 Water Tanker</td></tr>
+                            <tr><td><span class="sev sev-high">High</span></td><td>Big fire, people may be in danger</td><td>2 Fire Tenders + Water Tanker + Ambulance</td></tr>
+                            <tr><td><span class="sev sev-critical">Critical</span></td><td>Very large fire or people trapped</td><td>All free vehicles + help from other stations</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== INCIDENT INTAKE ==================== -->
+        <section id="intake" class="view">
+            <div class="page-title">
+                <span class="num">1</span>
+                <div><h2>Incident Intake</h2><p>Fill in this form when a new emergency call is received.</p></div>
+            </div>
+
+            <form action="#submitted" class="card">
+                <div class="grid-2">
+                    <fieldset>
+                        <legend>Caller Details</legend>
+                        <p><label for="caller">Caller Name</label>
+                           <input type="text" id="caller" name="caller" required placeholder="e.g. Rakesh Mehta"></p>
+                        <p><label for="phone">Phone Number</label>
+                           <input type="tel" id="phone" name="phone" required pattern="[0-9+\- ]{8,15}" placeholder="10 digit number"></p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Location</legend>
+                        <p><label for="address">Address</label>
+                           <input type="text" id="address" name="address" required placeholder="Street / building"></p>
+                        <p><label for="landmark">Nearby Landmark</label>
+                           <input type="text" id="landmark" name="landmark" placeholder="Optional"></p>
+                        <p><label for="area">Area / Zone</label>
+                           <select id="area" name="area">
+                               <option>North Zone</option>
+                               <option>South Zone</option>
+                               <option>East Zone</option>
+                               <option>West Zone</option>
+                               <option>Central Zone</option>
+                           </select></p>
+                    </fieldset>
+                </div>
+
+                <fieldset>
+                    <legend>Incident Details</legend>
+                    <div class="grid-3">
+                        <p><label for="date">Date</label>
+                           <input type="date" id="date" name="date" value="2026-11-18" required></p>
+                        <p><label for="time">Time of Call</label>
+                           <input type="time" id="time" name="time" value="10:45" required></p>
+                        <p><label for="type">Incident Type</label>
+                           <select id="type" name="type">
+                               <option>Building Fire</option>
+                               <option>Vehicle Fire</option>
+                               <option>Forest / Grass Fire</option>
+                               <option>Short Circuit Fire</option>
+                               <option>Gas Leak</option>
+                               <option>Rescue</option>
+                               <option>Other</option>
+                           </select></p>
+                    </div>
+                    <p><label for="people">People Trapped / Injured</label>
+                       <select id="people" name="people">
+                           <option>None</option>
+                           <option>Not sure</option>
+                           <option>Yes</option>
+                       </select></p>
+                    <p><label for="details">Description</label>
+                       <textarea id="details" name="details" rows="3" placeholder="What is happening?"></textarea></p>
+                </fieldset>
+
+                <div class="grid-2">
+                    <fieldset class="severity-box">
+                        <legend>Severity</legend>
+                        <div class="choice-row">
+                            <label class="choice sev-low"><input type="radio" name="severity" value="low" required> Low</label>
+                            <label class="choice sev-medium"><input type="radio" name="severity" value="medium"> Medium</label>
+                            <label class="choice sev-high"><input type="radio" name="severity" value="high"> High</label>
+                            <label class="choice sev-critical"><input type="radio" name="severity" value="critical"> Critical</label>
+                        </div>
+                        <p class="hint hint-default">Pick a severity to see the normal resources.</p>
+                        <p class="hint hint-low">Normal resources: <b>1 Fire Tender</b></p>
+                        <p class="hint hint-medium">Normal resources: <b>1 Fire Tender + 1 Water Tanker</b></p>
+                        <p class="hint hint-high">Normal resources: <b>2 Fire Tenders + Water Tanker + Ambulance</b></p>
+                        <p class="hint hint-critical">Normal resources: <b>All free vehicles + help from other stations</b></p>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Extra Help Needed</legend>
+                        <div class="choice-row">
+                            <label class="choice"><input type="checkbox" name="help" value="Ambulance"> Ambulance</label>
+                            <label class="choice"><input type="checkbox" name="help" value="Police"> Police</label>
+                            <label class="choice"><input type="checkbox" name="help" value="Electricity Dept"> Electricity Department</label>
+                            <label class="choice"><input type="checkbox" name="help" value="Gas Company"> Gas Company</label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn">Submit Incident</button>
+                    <button type="reset" class="btn ghost">Clear Form</button>
+                </div>
+            </form>
+
+            <div class="card">
+                <h3>Recently Received Incidents</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Incident ID</th><th>Time</th><th>Caller</th><th>Type</th><th>Location</th><th>Severity</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>INC-006</td><td>10:40 AM</td><td>Sunita Rao</td><td>Short Circuit Fire</td><td>Green Park Colony</td><td><span class="sev sev-medium">Medium</span></td></tr>
+                            <tr><td>INC-005</td><td>10:15 AM</td><td>Rakesh Mehta</td><td>Building Fire</td><td>Market Road</td><td><span class="sev sev-high">High</span></td></tr>
+                            <tr><td>INC-004</td><td>4:00 PM</td><td>Ravi Kumar</td><td>Forest / Grass Fire</td><td>Railway Colony</td><td><span class="sev sev-low">Low</span></td></tr>
+                            <tr><td>INC-003</td><td>2:30 AM</td><td>Security Guard</td><td>Building Fire</td><td>Industrial Area</td><td><span class="sev sev-critical">Critical</span></td></tr>
+                            <tr><td>INC-002</td><td>2:00 PM</td><td>Neha Gupta</td><td>Gas Leak</td><td>Sector 5</td><td><span class="sev sev-medium">Medium</span></td></tr>
+                            <tr><td>INC-001</td><td>9:00 AM</td><td>Amit Das</td><td>Vehicle Fire</td><td>Highway Bypass</td><td><span class="sev sev-low">Low</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VEHICLE AVAILABILITY ==================== -->
+        <section id="vehicles" class="view">
+            <div class="page-title">
+                <span class="num">2</span>
+                <div><h2>Vehicle Availability</h2><p>Check which vehicles are free before dispatching.</p></div>
+            </div>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Vehicle ID</th><th>Vehicle Type</th><th>Water Capacity</th><th>Station</th><th>Status</th><th>Current Incident</th><th>Remarks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>FT-01</td><td>Fire Tender</td><td>4000 litres</td><td>Main Station</td><td><span class="pill available">Available</span></td><td>-</td><td>-</td></tr>
+                            <tr><td>FT-02</td><td>Fire Tender</td><td>4000 litres</td><td>Main Station</td><td><span class="pill busy">On Duty</span></td><td>INC-005</td><td>-</td></tr>
+                            <tr><td>WT-01</td><td>Water Tanker</td><td>10000 litres</td><td>Main Station</td><td><span class="pill available">Available</span></td><td>-</td><td>-</td></tr>
+                            <tr><td>WT-02</td><td>Water Tanker</td><td>10000 litres</td><td>Main Station</td><td><span class="pill busy">On Duty</span></td><td>INC-005</td><td>-</td></tr>
+                            <tr><td>AM-01</td><td>Ambulance</td><td>-</td><td>Main Station</td><td><span class="pill available">Available</span></td><td>-</td><td>-</td></tr>
+                            <tr><td>RV-01</td><td>Rescue Van</td><td>-</td><td>Main Station</td><td><span class="pill available">Available</span></td><td>-</td><td>-</td></tr>
+                            <tr><td>LD-01</td><td>Ladder Truck</td><td>2000 litres</td><td>East Station</td><td><span class="pill waiting">Under Maintenance</span></td><td>-</td><td>Pump servicing</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note"><span class="dot available"></span> Ready to go &nbsp; <span class="dot busy"></span> Already sent out &nbsp; <span class="dot waiting"></span> Cannot be used right now</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Vehicle Count</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>Type</th><th>Total</th><th>Available</th><th>On Duty</th><th>Maintenance</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Fire Tender</td><td>2</td><td>1</td><td>1</td><td>0</td></tr>
+                                <tr><td>Water Tanker</td><td>2</td><td>1</td><td>1</td><td>0</td></tr>
+                                <tr><td>Ambulance</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                <tr><td>Rescue Van</td><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+                                <tr><td>Ladder Truck</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <form action="#submitted" class="card">
+                    <h3>Update Vehicle Status</h3>
+                    <p><label for="v-vehicle">Select Vehicle</label>
+                       <select id="v-vehicle" name="vehicle">
+                           <option>FT-01 (Fire Tender)</option>
+                           <option>FT-02 (Fire Tender)</option>
+                           <option>WT-01 (Water Tanker)</option>
+                           <option>WT-02 (Water Tanker)</option>
+                           <option>AM-01 (Ambulance)</option>
+                           <option>RV-01 (Rescue Van)</option>
+                           <option>LD-01 (Ladder Truck)</option>
+                       </select></p>
+                    <p><label for="v-status">New Status</label>
+                       <select id="v-status" name="vstatus">
+                           <option>Available</option>
+                           <option>On Duty</option>
+                           <option>Under Maintenance</option>
+                       </select></p>
+                    <p><label for="v-remarks">Remarks</label>
+                       <input type="text" id="v-remarks" name="remarks" placeholder="Optional"></p>
+                    <button type="submit" class="btn">Update Status</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== CREW ASSIGNMENT ==================== -->
+        <section id="crew" class="view">
+            <div class="page-title">
+                <span class="num">3</span>
+                <div><h2>Crew Assignment</h2><p>See who is free and put them on an incident.</p></div>
+            </div>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Crew ID</th><th>Name</th><th>Rank</th><th>Shift</th><th>Assigned Vehicle</th><th>Assigned Incident</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>C-01</td><td>Ramesh Kumar</td><td>Station Officer</td><td>Morning</td><td>FT-02</td><td>INC-005</td><td><span class="pill busy">On Duty</span></td></tr>
+                            <tr><td>C-02</td><td>Suresh Yadav</td><td>Firefighter</td><td>Morning</td><td>FT-02</td><td>INC-005</td><td><span class="pill busy">On Duty</span></td></tr>
+                            <tr><td>C-03</td><td>Anil Sharma</td><td>Driver</td><td>Morning</td><td>FT-02</td><td>INC-005</td><td><span class="pill busy">On Duty</span></td></tr>
+                            <tr><td>C-04</td><td>Pooja Patel</td><td>Firefighter</td><td>Morning</td><td>WT-02</td><td>INC-005</td><td><span class="pill busy">On Duty</span></td></tr>
+                            <tr><td>C-05</td><td>Vikram Joshi</td><td>Driver</td><td>Morning</td><td>WT-02</td><td>INC-005</td><td><span class="pill busy">On Duty</span></td></tr>
+                            <tr><td>C-06</td><td>Mohit Singh</td><td>Firefighter</td><td>Morning</td><td>Not assigned</td><td>-</td><td><span class="pill available">Free</span></td></tr>
+                            <tr><td>C-07</td><td>Deepak Verma</td><td>Paramedic</td><td>Morning</td><td>Not assigned</td><td>-</td><td><span class="pill available">Free</span></td></tr>
+                            <tr><td>C-08</td><td>Rahul Chauhan</td><td>Driver</td><td>Morning</td><td>Not assigned</td><td>-</td><td><span class="pill available">Free</span></td></tr>
+                            <tr><td>C-09</td><td>Kiran Desai</td><td>Firefighter</td><td>Night</td><td>-</td><td>-</td><td><span class="pill waiting">Off Duty</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <form action="#submitted" class="card">
+                    <h3>Assign Crew to Incident</h3>
+                    <p><label for="c-incident">Incident ID</label>
+                       <select id="c-incident" name="incident">
+                           <option>INC-005 - Building Fire (Market Road)</option>
+                           <option>INC-006 - Short Circuit Fire (Green Park Colony)</option>
+                       </select></p>
+                    <p><label for="c-vehicle">Vehicle (optional)</label>
+                       <select id="c-vehicle" name="vehicle">
+                           <option>No vehicle</option>
+                           <option>FT-01 (Fire Tender)</option>
+                           <option>WT-01 (Water Tanker)</option>
+                           <option>AM-01 (Ambulance)</option>
+                           <option>RV-01 (Rescue Van)</option>
+                       </select></p>
+                    <p>Select Crew Members</p>
+                    <div class="choice-row">
+                        <label class="choice"><input type="checkbox" name="crew" value="C-06"> Mohit Singh (Firefighter)</label>
+                        <label class="choice"><input type="checkbox" name="crew" value="C-07"> Deepak Verma (Paramedic)</label>
+                        <label class="choice"><input type="checkbox" name="crew" value="C-08"> Rahul Chauhan (Driver)</label>
+                    </div>
+                    <p class="note">Only crew members whose status is "Free" are shown in this list.</p>
+                    <div class="actions">
+                        <button type="submit" class="btn">Assign Crew</button>
+                        <button type="reset" class="btn ghost">Clear</button>
+                    </div>
+                </form>
+
+                <div class="card">
+                    <h3>Shift Timings</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead><tr><th>Shift</th><th>Timing</th></tr></thead>
+                            <tbody>
+                                <tr><td>Morning</td><td>6:00 AM - 2:00 PM</td></tr>
+                                <tr><td>Evening</td><td>2:00 PM - 10:00 PM</td></tr>
+                                <tr><td>Night</td><td>10:00 PM - 6:00 AM</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== DISPATCH STATUS ==================== -->
+        <section id="dispatch" class="view">
+            <div class="page-title">
+                <span class="num">4</span>
+                <div><h2>Dispatch Status</h2><p>Send vehicles out and track each incident until it is closed.</p></div>
+            </div>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Incident ID</th><th>Location</th><th>Severity</th><th>Vehicles Sent</th><th>Crew Count</th><th>Dispatch Time</th><th>Status</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INC-005</td>
+                                <td>Market Road</td>
+                                <td><span class="sev sev-high">High</span></td>
+                                <td>FT-02, WT-02</td>
+                                <td>5</td>
+                                <td>10:20 AM</td>
+                                <td><span class="pill busy">On the way</span></td>
+                            </tr>
+                            <tr>
+                                <td>INC-006</td>
+                                <td>Green Park Colony</td>
+                                <td><span class="sev sev-medium">Medium</span></td>
+                                <td>-</td>
+                                <td>0</td>
+                                <td>-</td>
+                                <td><span class="pill waiting">Waiting for dispatch</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="note">Possible statuses: Waiting for dispatch, Dispatched, On the way, Arrived at scene, Fire under control, Returned to station, Closed.</p>
+            </div>
+
+            <div class="grid-2">
+                <form action="#submitted" class="card">
+                    <h3>Dispatch a Vehicle</h3>
+                    <p><label for="d-incident">Incident ID</label>
+                       <select id="d-incident" name="incident">
+                           <option>INC-006 - Short Circuit Fire (Green Park Colony)</option>
+                           <option>INC-005 - Building Fire (Market Road)</option>
+                       </select></p>
+                    <p class="hint">Normal resources for <b>Medium</b>: 1 Fire Tender + 1 Water Tanker</p>
+                    <p>Vehicles to Send</p>
+                    <div class="choice-row">
+                        <label class="choice"><input type="checkbox" name="vehicle" value="FT-01"> FT-01 (Fire Tender)</label>
+                        <label class="choice"><input type="checkbox" name="vehicle" value="WT-01"> WT-01 (Water Tanker)</label>
+                        <label class="choice"><input type="checkbox" name="vehicle" value="AM-01"> AM-01 (Ambulance)</label>
+                        <label class="choice"><input type="checkbox" name="vehicle" value="RV-01"> RV-01 (Rescue Van)</label>
+                    </div>
+                    <p><label for="dtime">Dispatch Time</label>
+                       <input type="time" id="dtime" name="dtime" value="10:45" required></p>
+                    <p><label for="dnote">Instructions for Crew</label>
+                       <textarea id="dnote" name="dnote" rows="3" placeholder="Optional"></textarea></p>
+                    <div class="actions">
+                        <button type="submit" class="btn">Dispatch Now</button>
+                        <button type="reset" class="btn ghost">Clear</button>
+                    </div>
+                </form>
+
+                <form action="#submitted" class="card">
+                    <h3>Update Dispatch Status</h3>
+                    <p><label for="u-incident">Incident ID</label>
+                       <select id="u-incident" name="incident2">
+                           <option>INC-005 - Building Fire (Market Road)</option>
+                           <option>INC-006 - Short Circuit Fire (Green Park Colony)</option>
+                       </select></p>
+                    <p><label for="u-status">New Status</label>
+                       <select id="u-status" name="status">
+                           <option>Waiting for dispatch</option>
+                           <option>Dispatched</option>
+                           <option selected>On the way</option>
+                           <option>Arrived at scene</option>
+                           <option>Fire under control</option>
+                           <option>Returned to station</option>
+                           <option>Closed</option>
+                       </select></p>
+                    <p><label for="u-report">Final Report (when closing)</label>
+                       <textarea id="u-report" name="report" rows="3" placeholder="e.g. Fire put out, no injuries"></textarea></p>
+                    <button type="submit" class="btn">Update Status</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ==================== INCIDENT HISTORY ==================== -->
+        <section id="history" class="view">
+            <div class="page-title">
+                <span class="num">5</span>
+                <div><h2>Incident History</h2><p>Search past and current incidents.</p></div>
+            </div>
+
+            <form action="#history" class="card">
+                <div class="grid-4">
+                    <p><label for="from">From Date</label><input type="date" id="from" name="from"></p>
+                    <p><label for="to">To Date</label><input type="date" id="to" name="to"></p>
+                    <p><label for="stype">Incident Type</label>
+                       <select id="stype" name="stype">
+                           <option>All</option>
+                           <option>Building Fire</option>
+                           <option>Vehicle Fire</option>
+                           <option>Forest / Grass Fire</option>
+                           <option>Short Circuit Fire</option>
+                           <option>Gas Leak</option>
+                           <option>Rescue</option>
+                           <option>Other</option>
+                       </select></p>
+                    <p><label for="ssev">Severity</label>
+                       <select id="ssev" name="ssev">
+                           <option>All</option>
+                           <option>Low</option>
+                           <option>Medium</option>
+                           <option>High</option>
+                           <option>Critical</option>
+                       </select></p>
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Search</button>
+                    <button type="reset" class="btn ghost">Reset</button>
+                </div>
+            </form>
+
+            <div class="card">
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr><th>Incident ID</th><th>Date</th><th>Type</th><th>Location</th><th>Severity</th><th>Vehicles Used</th><th>Response Time</th><th>Result</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>INC-001</td><td>02-11-2026</td><td>Vehicle Fire</td><td>Highway Bypass</td><td><span class="sev sev-low">Low</span></td><td>FT-01</td><td>8 min</td><td>Fire put out</td></tr>
+                            <tr><td>INC-002</td><td>05-11-2026</td><td>Gas Leak</td><td>Sector 5</td><td><span class="sev sev-medium">Medium</span></td><td>FT-01, AM-01</td><td>10 min</td><td>Area made safe</td></tr>
+                            <tr><td>INC-003</td><td>08-11-2026</td><td>Building Fire</td><td>Industrial Area</td><td><span class="sev sev-critical">Critical</span></td><td>FT-01, FT-02, WT-01, WT-02, AM-01</td><td>12 min</td><td>Fire put out, 2 people rescued</td></tr>
+                            <tr><td>INC-004</td><td>10-11-2026</td><td>Forest / Grass Fire</td><td>Railway Colony</td><td><span class="sev sev-low">Low</span></td><td>WT-01</td><td>15 min</td><td>Fire put out</td></tr>
+                            <tr><td>INC-005</td><td>12-11-2026</td><td>Building Fire</td><td>Market Road</td><td><span class="sev sev-high">High</span></td><td>FT-02, WT-02</td><td>9 min</td><td><span class="pill waiting">In progress</span></td></tr>
+                            <tr><td>INC-006</td><td>12-11-2026</td><td>Short Circuit Fire</td><td>Green Park Colony</td><td><span class="sev sev-medium">Medium</span></td><td>-</td><td>-</td><td><span class="pill waiting">In progress</span></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Summary of Incidents</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead><tr><th>Severity</th><th>Number of Incidents</th></tr></thead>
+                        <tbody>
+                            <tr><td><span class="sev sev-low">Low</span></td><td>2</td></tr>
+                            <tr><td><span class="sev sev-medium">Medium</span></td><td>2</td></tr>
+                            <tr><td><span class="sev sev-high">High</span></td><td>1</td></tr>
+                            <tr><td><span class="sev sev-critical">Critical</span></td><td>1</td></tr>
+                            <tr><th>Total</th><th>6</th></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Fire Station Incident Management System - R.No: 15,17,27 </p>
+        <p class="top"><a href="#top">Back to top</a></p>
+    </footer>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            document.getElementById("clock-time").textContent = now.toLocaleTimeString("en-GB");
+            document.getElementById("clock-date").textContent = now.toLocaleDateString("en-GB", {
+                weekday: "long", day: "numeric", month: "long", year: "numeric"
+            });
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+
+</body>
+</html>
